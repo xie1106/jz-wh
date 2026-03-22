@@ -427,6 +427,26 @@
             position: relative;
             margin-bottom: 30px;
         }
+        
+        /* 隐藏滚动条但保持滚动功能 */
+        .schedule-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .schedule-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* 隐藏body滚动条 */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
         /* 冻结列和行功能 */
         .fixed-table {
             position: relative;
@@ -438,21 +458,26 @@
             top: 0;
             background: white;
             z-index: 20;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
         }
         
         .fixed-table thead tr:nth-child(1) {
+            top: 0;
             z-index: 24;
         }
         
         .fixed-table thead tr:nth-child(2) {
+            top: 30px;
             z-index: 23;
         }
         
         .fixed-table thead tr:nth-child(3) {
+            top: 60px;
             z-index: 22;
         }
         
         .fixed-table thead tr:nth-child(4) {
+            top: 90px;
             z-index: 21;
         }
         
@@ -493,9 +518,12 @@
             box-shadow: 2px 0 3px rgba(0,0,0,0.1);
         }
         
-        /* 确保冻结行的列也有背景色 */
-        .fixed-table thead th {
-            background: white;
+        /* 确保冻结列的表头也有背景色 */
+        .fixed-table thead th:nth-child(1),
+        .fixed-table thead th:nth-child(2),
+        .fixed-table thead th:nth-child(3),
+        .fixed-table thead th:nth-child(4) {
+            z-index: 30;
         }
         
         /* 确保颜色色块正常显示 */
