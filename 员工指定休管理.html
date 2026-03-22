@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工指定休管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 12px;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+            }
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #667eea;
+        }
+        .notice {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        .notice p {
+            color: #856404;
+            font-size: 11px;
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+        .form-group {
+            margin-bottom: 8px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .month-selector {
+            display: flex;
+            gap: 6px;
+        }
+        .month-selector select {
+            flex: 1;
+        }
+        .calendar {
+            border: none;
+            border-radius: 6px;
+            padding: 4px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            padding: 0 2px;
+        }
+        .calendar-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+        }
+        .calendar-nav {
+            display: flex;
+            gap: 4px;
+        }
+        .calendar-nav button {
+            padding: 3px 6px;
+            background: #f5f5f5;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        .calendar-nav button:hover {
+            background: #e0e0e0;
+        }
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 3px;
+            padding: 0 2px;
+        }
+        .weekday {
+            text-align: center;
+            font-weight: 600;
+            padding: 3px 0;
+            background: transparent;
+            border-radius: 3px;
+            font-size: 9px;
+            color: #666;
+        }
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+        }
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 11px;
+            flex-direction: column;
+            padding: 1px;
+            background: white;
+        }
+        .day:hover {
+            background: #f5f5f5;
+        }
+        .day.selected {
+            background: #800080;
+            color: white;
+        }
+        .day.holiday {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        }
+        .day.holiday .day-number {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .day.holiday.selected {
+            background: #800080;
+        }
+        .day.holiday.selected .day-number {
+            color: white;
+        }
+        .day .day-number {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1;
+        }
+        .day .holiday-name {
+            font-size: 8px;
+            color: #c62828;
+            margin-top: 1px;
+            text-align: center;
+            line-height: 1;
+        }
+        .day.holiday.selected .holiday-name {
+            color: #ffccff;
+        }
+        .day.workday {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+        .day.workday .day-number {
+            color: #1565c0;
+            font-weight: bold;
+        }
+        .day.workday.selected {
+            background: #800080;
+        }
+        .day.workday.selected .day-number {
+            color: white;
+        }
+        .day .workday-name {
+            font-size: 8px;
+            color: #1976d2;
+            margin-top: 1px;
+            text-align: center;
+            line-height: 1;
+        }
+        .day.workday.selected .workday-name {
+            color: #bbdefb;
+        }
+        .day.past {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .day.today {
+            box-shadow: 0 0 0 1.5px #667eea;
+        }
+        .selected-list {
+            margin-top: 8px;
+        }
+        .selected-list h3 {
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 12px;
+        }
+        .selected-days {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .selected-day-tag {
+            background: #800080;
+            color: white;
+            padding: 3px 6px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 10px;
+        }
+        .selected-day-tag button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .disabled-overlay {
+            position: relative;
+        }
+        .disabled-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .disabled-message {
+            background: #ffebee;
+            border: 2px solid #f44336;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .disabled-message h3 {
+            color: #d32f2f;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        .disabled-message p {
+            color: #666;
+            font-size: 12px;
+        }
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 6px;
+            padding: 10px;
+            color: #155724;
+            text-align: center;
+            display: none;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+        .success-message.show {
+            display: block;
+        }
+        .rest-days-info {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .rest-days-info label {
+            font-weight: bold;
+            color: #1565c0;
+            margin: 0;
+            font-size: 13px;
+        }
+        .rest-days-count {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .rest-days-count.warning {
+            color: #ff9800;
+        }
+        .rest-days-count.error {
+            color: #f44336;
+        }
+        .rest-days-setting {
+            background: #fff3e0;
+            border: 1px solid #ff9800;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .rest-days-setting label {
+            font-weight: bold;
+            color: #e65100;
+            margin: 0;
+            font-size: 14px;
+        }
+        .rest-days-setting input {
+            width: 60px;
+        }
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .stats {
+            margin-bottom: 15px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-card.submitted {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+        .stat-card.pending {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+        }
+        .stat-number {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        .data-table {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+            position: sticky;
+            top: 0;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .status-submitted {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .days-tag {
+            display: inline-block;
+            background: #800080;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 11px;
+        }
+        .action-btn {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        .action-btn.delete {
+            background: #ff4444;
+            color: white;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="排班管理系统.html" class="back-btn">← 返回首页</a>
+        
+        <h1>📋 员工指定休管理</h1>
+        
+        <div class="grid">
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="form-group">
+                    <label>选择月份</label>
+                    <div class="month-selector">
+                        <select id="yearSelect" style="width: 120px;">
+                        </select>
+                        <select id="monthSelect" style="width: 100px;">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="rest-days-setting" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <label>⚠️ 本月应休天数设置：</label>
+                    <input type="number" id="totalRestDaysTop" min="1" max="31" value="5" style="width: 60px;">
+                    <label>天</label>
+                    <button class="btn btn-primary" onclick="saveTotalRestDaysTop()">💾 保存设置</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>✍️ 员工指定休收集</h2>
+                
+                <div class="notice">
+                    <p><strong>⚠️ 重要提示：</strong></p>
+                    <p>1. 每月25号前请务必提交下个月的休息时间</p>
+                    <p>2. 如果没有回复的默认没有指定休息</p>
+                    <p>3. 提交后不要过来寻求调整，一律拒绝！</p>
+                </div>
+                
+                <div id="disabledMessage" class="disabled-message" style="display: none;">
+                    <h3>⚠️ 请先设置本月应休天数</h3>
+                    <p>请管理员先设置本月应休天数，然后才能进行登记收集</p>
+                </div>
+                
+                <div id="employeeFormContainer">
+                    <div class="form-group">
+                        <label>选择员工姓名 
+                            <button class="btn btn-primary" style="padding: 4px 8px; font-size: 12px; margin-left: 10px;" onclick="toggleEmployeeManager()">👥 管理员工</button>
+                        </label>
+                        <select id="employeeName">
+                            <option value="">请选择姓名</option>
+                        </select>
+                    </div>
+                    
+                    <div id="employeeManagerPanel" style="display: none; background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                        <h4 style="margin-bottom: 10px; font-size: 15px;">员工管理</h4>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <label style="font-size: 13px;">操作：</label>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="btn btn-primary" onclick="showAddEmployee()">➕ 添加</button>
+                                <button class="btn btn-primary" onclick="showEditEmployee()">✏️ 修改</button>
+                                <button class="btn btn-primary" style="background: #f44336;" onclick="showDeleteEmployee()">🗑️ 删除</button>
+                            </div>
+                        </div>
+                        <div id="employeeAddPanel" style="display: none;">
+                            <div class="form-group">
+                                <label style="font-size: 13px;">新员工姓名：</label>
+                                <input type="text" id="newEmployeeNameInput" placeholder="输入姓名">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 13px;">组别：</label>
+                                <select id="newEmployeeGroupSelect">
+                                    <option value="经理">经理</option>
+                                    <option value="主管">主管</option>
+                                    <option value="到货">到货</option>
+                                    <option value="发货">发货</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-primary" onclick="doAddEmployee()">确认添加</button>
+                                <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
+                            </div>
+                        </div>
+                        <div id="employeeEditPanel" style="display: none;">
+                            <div class="form-group">
+                                <label style="font-size: 13px;">选择员工：</label>
+                                <select id="editEmployeeSelect">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 13px;">新姓名：</label>
+                                <input type="text" id="editEmployeeNameInput" placeholder="输入新姓名">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 13px;">组别：</label>
+                                <select id="editEmployeeGroupSelect">
+                                    <option value="经理">经理</option>
+                                    <option value="主管">主管</option>
+                                    <option value="到货">到货</option>
+                                    <option value="发货">发货</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-primary" onclick="doEditEmployee()">确认修改</button>
+                                <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
+                            </div>
+                        </div>
+                        <div id="employeeDeletePanel" style="display: none;">
+                            <div class="form-group">
+                                <label style="font-size: 13px;">选择要删除的员工：</label>
+                                <select id="deleteEmployeeSelect">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                            <p style="color: #f44336; font-size: 11px; margin-bottom: 8px;">⚠️ 此操作将同时删除该员工的所有排班数据！</p>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-primary" style="background: #f44336;" onclick="doDeleteEmployee()">确认删除</button>
+                                <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rest-days-info">
+                        <label>本月应休天数：</label>
+                        <span class="rest-days-count" id="restDaysCount">-</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>选择指定休息日期（点击日期选择/取消）</label>
+                        <div class="calendar" id="calendarContainer">
+                            <div class="calendar-header">
+                                <div class="calendar-title" id="calendarTitle"></div>
+                                <div class="calendar-nav">
+                                    <button onclick="prevMonth()">&lt; 上月</button>
+                                    <button onclick="nextMonth()">下月 &gt;</button>
+                                </div>
+                            </div>
+                            <div class="weekdays">
+                                <div class="weekday">日</div>
+                                <div class="weekday">一</div>
+                                <div class="weekday">二</div>
+                                <div class="weekday">三</div>
+                                <div class="weekday">四</div>
+                                <div class="weekday">五</div>
+                                <div class="weekday">六</div>
+                        </div>
+                        <div class="days" id="calendarDays"></div>
+                        
+                        <div style="margin-top: 12px; font-size: 11px; color: #888; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+                            <span style="display: flex; align-items: center; gap: 5px;">
+                                <span style="width: 12px; height: 12px; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-radius: 3px;"></span>
+                                节假日
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 5px;">
+                                <span style="width: 12px; height: 12px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 3px;"></span>
+                                补班
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 5px;">
+                                <span style="width: 12px; height: 12px; background: #800080; border-radius: 3px;"></span>
+                                已选
+                            </span>
+                        </div>
+                        
+                        <div class="selected-list">
+                            <h3>已选择的指定休日期：</h3>
+                            <div class="selected-days" id="selectedDays"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="submit-btn" id="submitBtn" onclick="submitForm()" disabled>提交指定休申请</button>
+                
+                <div class="success-message" id="successMessage">
+                    ✅ 提交成功！您的指定休申请已保存。
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📊 数据管理</h2>
+                
+                <div class="stats">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalEmployees">16</div>
+                            <div class="stat-label">总员工数</div>
+                        </div>
+                        <div class="stat-card submitted">
+                            <div class="stat-number" id="submittedCount">0</div>
+                            <div class="stat-label">已提交</div>
+                        </div>
+                        <div class="stat-card pending">
+                            <div class="stat-number" id="pendingCount">16</div>
+                            <div class="stat-label">未提交</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>姓名</th>
+                                <th>组别</th>
+                                <th>状态</th>
+                                <th>指定休日期</th>
+                                <th>提交时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let employeeList = [
+            '谢焕君', '陈文童', '付新远', '林创武', '李亚景', '迟喻阳', '蒋能',
+            '林镇兴', '林佗贵', '吴兴义', '吴兴浪', '刘少东', '李仁', '陈安然',
+            '黄丽情', '崔斯欣'
+        ];
+        let employeeGroups = {
+            '谢焕君': '经理',
+            '陈文童': '主管',
+            '付新远': '主管',
+            '林创武': '到货',
+            '李亚景': '到货',
+            '迟喻阳': '到货',
+            '蒋能': '到货',
+            '林镇兴': '主管',
+            '林佗贵': '发货',
+            '吴兴义': '发货',
+            '吴兴浪': '发货',
+            '刘少东': '发货',
+            '李仁': '发货',
+            '陈安然': '发货',
+            '黄丽情': '发货',
+            '崔斯欣': '发货'
+        };
+        
+        let holidays = {
+            '2025-01-01': '元旦',
+            '2025-01-28': '除夕',
+            '2025-01-29': '春节',
+            '2025-01-30': '春节',
+            '2025-01-31': '春节',
+            '2025-02-01': '春节',
+            '2025-02-02': '春节',
+            '2025-02-03': '春节',
+            '2025-02-04': '春节',
+            '2025-04-04': '清明',
+            '2025-05-01': '劳动节',
+            '2025-05-02': '劳动节',
+            '2025-05-03': '劳动节',
+            '2025-05-04': '劳动节',
+            '2025-05-05': '劳动节',
+            '2025-06-01': '端午',
+            '2025-10-01': '国庆',
+            '2025-10-02': '国庆',
+            '2025-10-03': '国庆',
+            '2025-10-04': '国庆',
+            '2025-10-05': '国庆',
+            '2025-10-06': '国庆',
+            '2025-10-07': '国庆',
+            '2025-10-08': '国庆',
+            '2026-01-01': '元旦',
+            '2026-01-28': '除夕',
+            '2026-01-29': '春节',
+            '2026-01-30': '春节',
+            '2026-01-31': '春节',
+            '2026-02-01': '春节',
+            '2026-02-02': '春节',
+            '2026-02-03': '春节',
+            '2026-02-04': '春节',
+            '2026-04-04': '清明',
+            '2026-05-01': '劳动节',
+            '2026-05-02': '劳动节',
+            '2026-05-03': '劳动节',
+            '2026-05-04': '劳动节',
+            '2026-05-05': '劳动节',
+            '2026-06-19': '端午',
+            '2026-09-25': '中秋',
+            '2026-10-01': '国庆',
+            '2026-10-02': '国庆',
+            '2026-10-03': '国庆',
+            '2026-10-04': '国庆',
+            '2026-10-05': '国庆',
+            '2026-10-06': '国庆',
+            '2026-10-07': '国庆'
+        };
+        
+        let workDays = {
+            '2025-01-24': '补班',
+            '2025-02-08': '补班',
+            '2025-04-27': '补班',
+            '2025-09-28': '补班',
+            '2025-10-11': '补班',
+            '2026-01-24': '补班',
+            '2026-02-07': '补班',
+            '2026-04-26': '补班',
+            '2026-09-27': '补班',
+            '2026-10-10': '补班'
+        };
+        
+        function saveEmployeeList() {
+            localStorage.setItem('employee_list', JSON.stringify(employeeList));
+            localStorage.setItem('employee_groups', JSON.stringify(employeeGroups));
+        }
+        
+        function loadEmployeeList() {
+            const savedList = localStorage.getItem('employee_list');
+            const savedGroups = localStorage.getItem('employee_groups');
+            if (savedList) {
+                employeeList = JSON.parse(savedList);
+            }
+            if (savedGroups) {
+                employeeGroups = JSON.parse(savedGroups);
+            }
+        }
+        
+        let currentYear = 0;
+        let currentMonth = 0;
+        let selectedDays = [];
+        let totalRestDays = 5;
+        
+        function init() {
+            const now = new Date();
+            currentYear = now.getFullYear();
+            currentMonth = now.getMonth() + 1;
+            
+            if (currentMonth === 12) {
+                currentMonth = 1;
+                currentYear++;
+            } else {
+                currentMonth++;
+            }
+            
+            loadEmployeeList();
+            populateEmployeeSelect();
+            populateYearSelect();
+            populateMonthSelect();
+            document.getElementById('yearSelect').value = currentYear;
+            document.getElementById('monthSelect').value = currentMonth;
+            
+            loadTotalRestDays();
+            loadSavedData();
+            renderCalendar();
+            loadData();
+        }
+        
+        function populateEmployeeSelect() {
+            const employeeSelect = document.getElementById('employeeName');
+            const editEmployeeSelect = document.getElementById('editEmployeeSelect');
+            const deleteEmployeeSelect = document.getElementById('deleteEmployeeSelect');
+            
+            employeeSelect.innerHTML = '<option value="">请选择姓名</option>';
+            editEmployeeSelect.innerHTML = '<option value="">请选择</option>';
+            deleteEmployeeSelect.innerHTML = '<option value="">请选择</option>';
+            
+            employeeList.forEach(name => {
+                employeeSelect.innerHTML += '<option value="' + name + '">' + name + '</option>';
+                editEmployeeSelect.innerHTML += '<option value="' + name + '">' + name + '</option>';
+                deleteEmployeeSelect.innerHTML += '<option value="' + name + '">' + name + '</option>';
+            });
+        }
+        
+        function toggleEmployeeManager() {
+            const panel = document.getElementById('employeeManagerPanel');
+            if (panel.style.display === 'none' || panel.style.display === '') {
+                panel.style.display = 'block';
+                populateEmployeeSelect();
+            } else {
+                hideEmployeeManager();
+            }
+        }
+        
+        function hideEmployeeManager() {
+            document.getElementById('employeeManagerPanel').style.display = 'none';
+            document.getElementById('employeeAddPanel').style.display = 'none';
+            document.getElementById('employeeEditPanel').style.display = 'none';
+            document.getElementById('employeeDeletePanel').style.display = 'none';
+        }
+        
+        function showAddEmployee() {
+            document.getElementById('employeeAddPanel').style.display = 'block';
+            document.getElementById('employeeEditPanel').style.display = 'none';
+            document.getElementById('employeeDeletePanel').style.display = 'none';
+            document.getElementById('newEmployeeNameInput').value = '';
+            document.getElementById('newEmployeeGroupSelect').value = '发货';
+        }
+        
+        function showEditEmployee() {
+            document.getElementById('employeeAddPanel').style.display = 'none';
+            document.getElementById('employeeEditPanel').style.display = 'block';
+            document.getElementById('employeeDeletePanel').style.display = 'none';
+            populateEmployeeSelect();
+        }
+        
+        function showDeleteEmployee() {
+            document.getElementById('employeeAddPanel').style.display = 'none';
+            document.getElementById('employeeEditPanel').style.display = 'none';
+            document.getElementById('employeeDeletePanel').style.display = 'block';
+            populateEmployeeSelect();
+        }
+        
+        function doAddEmployee() {
+            const newName = document.getElementById('newEmployeeNameInput').value.trim();
+            const newGroup = document.getElementById('newEmployeeGroupSelect').value;
+            
+            if (!newName) {
+                alert('请输入员工姓名！');
+                return;
+            }
+            if (employeeList.includes(newName)) {
+                alert('该员工已存在！');
+                return;
+            }
+            
+            employeeList.push(newName);
+            employeeGroups[newName] = newGroup;
+            
+            saveEmployeeList();
+            populateEmployeeSelect();
+            loadData();
+            hideEmployeeManager();
+            alert('员工添加成功！');
+        }
+        
+        function doEditEmployee() {
+            const oldName = document.getElementById('editEmployeeSelect').value;
+            const newName = document.getElementById('editEmployeeNameInput').value.trim();
+            const newGroup = document.getElementById('editEmployeeGroupSelect').value;
+            
+            if (!oldName) {
+                alert('请选择要修改的员工！');
+                return;
+            }
+            if (!newName) {
+                alert('请输入新姓名！');
+                return;
+            }
+            if (oldName !== newName && employeeList.includes(newName)) {
+                alert('该姓名已存在！');
+                return;
+            }
+            
+            if (oldName !== newName) {
+                const index = employeeList.indexOf(oldName);
+                employeeList[index] = newName;
+                delete employeeGroups[oldName];
+                employeeGroups[newName] = newGroup;
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith('schedule_') && key.includes(oldName)) {
+                        const data = localStorage.getItem(key);
+                        const newKey = key.replace(oldName, newName);
+                        localStorage.removeItem(key);
+                        localStorage.setItem(newKey, data);
+                    }
+                }
+            } else {
+                employeeGroups[oldName] = newGroup;
+            }
+            
+            saveEmployeeList();
+            populateEmployeeSelect();
+            loadData();
+            hideEmployeeManager();
+            alert('员工信息已更新！');
+        }
+        
+        function doDeleteEmployee() {
+            const name = document.getElementById('deleteEmployeeSelect').value;
+            
+            if (!name) {
+                alert('请选择要删除的员工！');
+                return;
+            }
+            if (!confirm('确定要删除员工"' + name + '"吗？\n\n注意：此操作将同时删除该员工的所有排班数据！')) {
+                return;
+            }
+            
+            const index = employeeList.indexOf(name);
+            employeeList.splice(index, 1);
+            delete employeeGroups[name];
+            
+            const keysToDelete = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('schedule_') && key.includes(name)) {
+                    keysToDelete.push(key);
+                }
+            }
+            keysToDelete.forEach(key => localStorage.removeItem(key));
+            
+            saveEmployeeList();
+            populateEmployeeSelect();
+            loadData();
+            hideEmployeeManager();
+            alert('员工删除成功！');
+        }
+        
+        document.getElementById('editEmployeeSelect').addEventListener('change', function() {
+            const name = this.value;
+            if (name) {
+                document.getElementById('editEmployeeNameInput').value = name;
+                document.getElementById('editEmployeeGroupSelect').value = employeeGroups[name] || '发货';
+            }
+        });
+        
+        function populateYearSelect() {
+            const yearSelect = document.getElementById('yearSelect');
+            const now = new Date();
+            for (let i = now.getFullYear(); i <= now.getFullYear() + 1; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '年';
+                yearSelect.appendChild(option);
+            }
+        }
+        
+        function populateMonthSelect() {
+            const monthSelect = document.getElementById('monthSelect');
+            const now = new Date();
+            const currentMonth = now.getMonth() + 1;
+            const currentDay = now.getDate();
+            
+            // 清空现有选项
+            monthSelect.innerHTML = '';
+            
+            // 确定要显示的月份范围
+            let monthsToShow = [];
+            
+            // 25号之前：显示当前月份及以后的月份
+            if (currentDay <= 25) {
+                for (let i = currentMonth; i <= 12; i++) {
+                    monthsToShow.push(i);
+                }
+                // 添加明年的1-当前月份-1月
+                for (let i = 1; i < currentMonth; i++) {
+                    monthsToShow.push(i);
+                }
+            } else {
+                // 25号之后：显示下一个月份及以后的月份
+                let startMonth = currentMonth + 1;
+                if (startMonth > 12) {
+                    startMonth = 1;
+                }
+                for (let i = startMonth; i <= 12; i++) {
+                    monthsToShow.push(i);
+                }
+                // 添加明年的1-起始月份-1月
+                for (let i = 1; i < startMonth; i++) {
+                    monthsToShow.push(i);
+                }
+            }
+            
+            // 添加月份选项
+            monthsToShow.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month + '月';
+                monthSelect.appendChild(option);
+            });
+        }
+        
+        function getTotalRestDaysKey() {
+            return 'total_rest_days_' + currentYear + '_' + currentMonth;
+        }
+        
+        function checkRestDaysSet() {
+            const key = getTotalRestDaysKey();
+            return localStorage.getItem(key) !== null;
+        }
+        
+        function checkCollectionStatus() {
+            const now = new Date();
+            const currentDay = now.getDate();
+            const isAfter25th = currentDay > 25;
+            
+            return !isAfter25th;
+        }
+        
+        function updateFormState() {
+            const isSet = checkRestDaysSet();
+            const canCollect = checkCollectionStatus();
+            const disabledMessage = document.getElementById('disabledMessage');
+            const employeeFormContainer = document.getElementById('employeeFormContainer');
+            const submitBtn = document.getElementById('submitBtn');
+            const calendarContainer = document.getElementById('calendarContainer');
+            const collectionStatusMessage = document.getElementById('collectionStatusMessage');
+            
+            if (canCollect && isSet) {
+                disabledMessage.style.display = 'none';
+                if (collectionStatusMessage) {
+                    collectionStatusMessage.style.display = 'none';
+                }
+                employeeFormContainer.classList.remove('disabled-overlay');
+                submitBtn.disabled = false;
+                if (calendarContainer) {
+                    calendarContainer.classList.remove('disabled-overlay');
+                }
+            } else if (!canCollect) {
+                disabledMessage.style.display = 'none';
+                if (collectionStatusMessage) {
+                    collectionStatusMessage.style.display = 'block';
+                } else {
+                    // 如果没有状态消息元素，创建一个
+                    const message = document.createElement('div');
+                    message.id = 'collectionStatusMessage';
+                    message.className = 'disabled-message';
+                    message.innerHTML = '<h3>⚠️ 收集已截止</h3><p>每月25号后停止收集员工指定休，请下月再提交</p>';
+                    employeeFormContainer.parentNode.insertBefore(message, employeeFormContainer);
+                }
+                employeeFormContainer.classList.add('disabled-overlay');
+                submitBtn.disabled = true;
+                if (calendarContainer) {
+                    calendarContainer.classList.add('disabled-overlay');
+                }
+            } else {
+                disabledMessage.style.display = 'block';
+                employeeFormContainer.classList.add('disabled-overlay');
+                submitBtn.disabled = true;
+                if (calendarContainer) {
+                    calendarContainer.classList.add('disabled-overlay');
+                }
+            }
+        }
+        
+        function loadTotalRestDays() {
+            const key = getTotalRestDaysKey();
+            const savedDays = localStorage.getItem(key);
+            if (savedDays) {
+                totalRestDays = parseInt(savedDays);
+            } else {
+                totalRestDays = 4;
+            }
+            document.getElementById('totalRestDaysTop').value = totalRestDays;
+            updateRestDaysDisplay();
+            updateFormState();
+        }
+        
+        function saveTotalRestDaysTop() {
+            const days = document.getElementById('totalRestDaysTop').value;
+            if (!days || days < 1) {
+                alert('请输入有效的休息天数！');
+                return;
+            }
+            const key = getTotalRestDaysKey();
+            localStorage.setItem(key, days);
+            totalRestDays = parseInt(days);
+            updateRestDaysDisplay();
+            updateFormState();
+            alert('总休息天数已保存：' + days + '天');
+        }
+        
+        function updateRestDaysDisplay() {
+            const countElement = document.getElementById('restDaysCount');
+            const selected = selectedDays.length;
+            countElement.textContent = selected + '/' + totalRestDays;
+            countElement.className = 'rest-days-count';
+            if (selected >= totalRestDays) {
+                countElement.classList.add('error');
+            } else if (selected >= totalRestDays - 1) {
+                countElement.classList.add('warning');
+            }
+        }
+        
+        function renderCalendar() {
+            const calendarTitle = document.getElementById('calendarTitle');
+            const calendarDays = document.getElementById('calendarDays');
+            
+            calendarTitle.textContent = currentYear + '年' + currentMonth + '月';
+            
+            const firstDay = new Date(currentYear, currentMonth - 1, 1);
+            const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+            const startDay = firstDay.getDay();
+            
+            calendarDays.innerHTML = '';
+            
+            for (let i = 0; i < startDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'day';
+                emptyDay.style.visibility = 'hidden';
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            const today = new Date();
+            const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                
+                const dateStr = currentYear + '-' + String(currentMonth).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+                
+                let dayContent = '<span class="day-number">' + day + '</span>';
+                
+                if (holidays[dateStr]) {
+                    dayElement.classList.add('holiday');
+                    dayContent += '<span class="holiday-name">' + holidays[dateStr] + '</span>';
+                } else if (workDays[dateStr]) {
+                    dayElement.classList.add('workday');
+                    dayContent += '<span class="workday-name">' + workDays[dateStr] + '</span>';
+                }
+                
+                dayElement.innerHTML = dayContent;
+                
+                const date = new Date(currentYear, currentMonth - 1, day);
+                
+                if (dateStr === todayStr) {
+                    dayElement.classList.add('today');
+                }
+                
+                if (date < today.setHours(0, 0, 0, 0)) {
+                    dayElement.classList.add('past');
+                }
+                
+                if (selectedDays.includes(dateStr)) {
+                    dayElement.classList.add('selected');
+                }
+                
+                dayElement.onclick = () => toggleDay(dateStr, dayElement);
+                calendarDays.appendChild(dayElement);
+            }
+            
+            renderSelectedDays();
+        }
+        
+        function toggleDay(dateStr, element) {
+            if (!checkRestDaysSet()) {
+                alert('请管理员先设置本月总休息天数！');
+                return;
+            }
+            
+            const index = selectedDays.indexOf(dateStr);
+            if (index > -1) {
+                selectedDays.splice(index, 1);
+                element.classList.remove('selected');
+            } else {
+                if (selectedDays.length >= totalRestDays) {
+                    alert('已达到本月总休息天数限制（' + totalRestDays + '天），不能再选择更多日期！');
+                    return;
+                }
+                selectedDays.push(dateStr);
+                element.classList.add('selected');
+            }
+            renderSelectedDays();
+            updateRestDaysDisplay();
+        }
+        
+        function renderSelectedDays() {
+            const container = document.getElementById('selectedDays');
+            container.innerHTML = '';
+            
+            if (selectedDays.length === 0) {
+                container.innerHTML = '<span style="color: #999; font-size: 12px;">暂无选择</span>';
+                return;
+            }
+            
+            selectedDays.sort().forEach(dateStr => {
+                const tag = document.createElement('div');
+                tag.className = 'selected-day-tag';
+                tag.innerHTML = dateStr + ' <button onclick="removeDay(\'' + dateStr + '\')">×</button>';
+                container.appendChild(tag);
+            });
+        }
+        
+        function removeDay(dateStr) {
+            selectedDays = selectedDays.filter(d => d !== dateStr);
+            updateRestDaysDisplay();
+            renderCalendar();
+        }
+        
+        function prevMonth() {
+            if (currentMonth === 1) {
+                currentMonth = 12;
+                currentYear--;
+            } else {
+                currentMonth--;
+            }
+            document.getElementById('yearSelect').value = currentYear;
+            document.getElementById('monthSelect').value = currentMonth;
+            selectedDays = [];
+            loadTotalRestDays();
+            loadSavedData();
+            renderCalendar();
+            loadData();
+        }
+        
+        function nextMonth() {
+            if (currentMonth === 12) {
+                currentMonth = 1;
+                currentYear++;
+            } else {
+                currentMonth++;
+            }
+            document.getElementById('yearSelect').value = currentYear;
+            document.getElementById('monthSelect').value = currentMonth;
+            selectedDays = [];
+            loadTotalRestDays();
+            loadSavedData();
+            renderCalendar();
+            loadData();
+        }
+        
+        document.getElementById('yearSelect').addEventListener('change', function() {
+            currentYear = parseInt(this.value);
+            selectedDays = [];
+            loadTotalRestDays();
+            loadSavedData();
+            renderCalendar();
+            loadData();
+        });
+        
+        document.getElementById('monthSelect').addEventListener('change', function() {
+            currentMonth = parseInt(this.value);
+            selectedDays = [];
+            loadTotalRestDays();
+            loadSavedData();
+            renderCalendar();
+            loadData();
+        });
+        
+        function loadSavedData() {
+            const employeeName = document.getElementById('employeeName').value;
+            if (!employeeName) return;
+            
+            const key = 'schedule_' + currentYear + '_' + currentMonth + '_' + employeeName;
+            const savedData = localStorage.getItem(key);
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                selectedDays = data.selectedDays || [];
+            }
+            updateRestDaysDisplay();
+        }
+        
+        document.getElementById('employeeName').addEventListener('change', function() {
+            selectedDays = [];
+            loadSavedData();
+            renderCalendar();
+        });
+        
+        function saveTotalRestDaysTop() {
+            const days = document.getElementById('totalRestDaysTop').value;
+            if (!days || days < 1) {
+                alert('请输入有效的休息天数！');
+                return;
+            }
+            const key = getTotalRestDaysKey();
+            localStorage.setItem(key, days);
+            totalRestDays = parseInt(days);
+            updateRestDaysDisplay();
+            updateFormState();
+            alert('总休息天数已保存：' + days + '天');
+        }
+        
+        function submitForm() {
+            if (!checkRestDaysSet()) {
+                alert('请管理员先设置本月总休息天数！');
+                return;
+            }
+            
+            const employeeName = document.getElementById('employeeName').value;
+            if (!employeeName) {
+                alert('请先选择员工姓名！');
+                return;
+            }
+            
+            if (selectedDays.length > totalRestDays) {
+                alert('指定休天数（' + selectedDays.length + '天）超过了本月总休息天数限制（' + totalRestDays + '天），请减少选择！');
+                return;
+            }
+            
+            const key = 'schedule_' + currentYear + '_' + currentMonth + '_' + employeeName;
+            const data = {
+                name: employeeName,
+                group: employeeGroups[employeeName],
+                year: currentYear,
+                month: currentMonth,
+                selectedDays: selectedDays,
+                submittedAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem(key, JSON.stringify(data));
+            
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            setTimeout(() => successMsg.classList.remove('show'), 3000);
+            
+            loadData();
+        }
+        
+        function loadData() {
+            const tableBody = document.getElementById('dataTableBody');
+            tableBody.innerHTML = '';
+            
+            let submittedCount = 0;
+            let displayIndex = 0;
+            
+            employeeList.forEach((name, index) => {
+                const key = 'schedule_' + currentYear + '_' + currentMonth + '_' + name;
+                const savedData = localStorage.getItem(key);
+                
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    submittedCount++;
+                    displayIndex++;
+                    
+                    const daysTags = data.selectedDays.map(day => {
+                        const date = new Date(day);
+                        return '<span class="days-tag">' + (date.getMonth() + 1) + '/' + date.getDate() + '</span>';
+                    }).join('');
+                    
+                    const submittedTime = data.submittedAt ? new Date(data.submittedAt).toLocaleString('zh-CN') : '-';
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${displayIndex}</td>
+                        <td><strong>${name}</strong></td>
+                        <td>${employeeGroups[name]}</td>
+                        <td><span class="status-badge status-submitted">已提交</span></td>
+                        <td>${daysTags || '<span style="color:#999;">无</span>'}</td>
+                        <td>${submittedTime}</td>
+                        <td>
+                            <button class="action-btn delete" onclick="deleteRecord('${name}')">删除</button>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                }
+            });
+            
+            if (submittedCount === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7" class="empty-state">暂无登记的员工</td></tr>';
+            }
+            
+            document.getElementById('totalEmployees').textContent = employeeList.length;
+            document.getElementById('submittedCount').textContent = submittedCount;
+            document.getElementById('pendingCount').textContent = employeeList.length - submittedCount;
+        }
+        
+        function deleteRecord(name) {
+            if (confirm('确定要删除' + name + '的记录吗？')) {
+                const key = 'schedule_' + currentYear + '_' + currentMonth + '_' + name;
+                localStorage.removeItem(key);
+                loadData();
+            }
+        }
+        
+        init();
+    </script>
+</body>
+</html>
