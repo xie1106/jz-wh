@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云仓排班管理系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 26px;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .card-desc {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .card-employee {
+            border-top: 3px solid #4CAF50;
+        }
+        .card-admin {
+            border-top: 3px solid #2196F3;
+        }
+        .card-schedule {
+            border-top: 3px solid #FF9800;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 22px;
+            }
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 云仓排班管理系统</h1>
+        
+        <div class="card-container">
+            <div class="card card-admin" onclick="location.href='员工指定休管理.html'">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">员工指定休管理</div>
+                <div class="card-desc">员工填写指定休，填写后立即显示登记明细</div>
+            </div>
+            
+            <div class="card card-schedule" onclick="location.href='排班表生成.html'">
+                <div class="card-icon">📋</div>
+                <div class="card-title">排班表生成</div>
+                <div class="card-desc">一键生成完整的月度排班表</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
