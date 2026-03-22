@@ -820,11 +820,26 @@
             const savedList = localStorage.getItem('employee_list');
             const savedGroups = localStorage.getItem('employee_groups');
             if (savedList) {
-                employeeList = JSON.parse(savedList);
+                try {
+                    const parsedList = JSON.parse(savedList);
+                    if (Array.isArray(parsedList) && parsedList.length > 0) {
+                        employeeList = parsedList;
+                    }
+                } catch (e) {
+                    console.error('加载员工列表失败:', e);
+                }
             }
             if (savedGroups) {
-                employeeGroups = JSON.parse(savedGroups);
+                try {
+                    const parsedGroups = JSON.parse(savedGroups);
+                    if (typeof parsedGroups === 'object' && parsedGroups !== null) {
+                        employeeGroups = parsedGroups;
+                    }
+                } catch (e) {
+                    console.error('加载员工分组失败:', e);
+                }
             }
+            console.log('员工列表:', employeeList);
         }
         
         let currentYear = 0;
