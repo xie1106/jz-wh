@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>云仓排班管理系统</title>
+    <title>排班管理系统</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
         body {
-            font-family: "Microsoft YaHei", Arial, sans-serif;
+            font-family: "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -43,19 +44,29 @@
         }
         .nav-link {
             display: block;
-            padding: 15px 20px;
-            background: #4CAF50;
+            padding: 20px 25px;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 18px;
             font-weight: bold;
             transition: all 0.3s ease;
         }
+        .nav-link:nth-child(1) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .nav-link:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
         .nav-link:hover {
-            background: #45a049;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .nav-link:nth-child(1):hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #684099 100%);
+        }
+        .nav-link:nth-child(2):hover {
+            background: linear-gradient(135deg, #e684f0 0%, #e94b60 100%);
         }
         .footer {
             margin-top: 40px;
@@ -66,13 +77,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>云仓排班管理系统</h1>
+        <h1>排班管理系统</h1>
         <div class="nav-links">
-            <a href="员工指定休管理.html" class="nav-link">员工指定休管理</a>
-            <a href="排班表生成.html" class="nav-link">排班表生成</a>
+            <a href="员工指定休管理.html" class="nav-link">📅 指定休收集</a>
+            <a href="排班表生成.html" class="nav-link">⚙️ 一键生成排班表</a>
         </div>
         <div class="footer">
-            <p>© 2026 云仓排班管理系统</p>
+            <p>© 2026 排班管理系统</p>
         </div>
     </div>
 </body>
