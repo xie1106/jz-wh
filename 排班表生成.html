@@ -772,11 +772,26 @@
             const savedList = localStorage.getItem('employee_list');
             const savedGroups = localStorage.getItem('employee_groups');
             if (savedList) {
-                employeeList = JSON.parse(savedList);
+                try {
+                    const parsedList = JSON.parse(savedList);
+                    if (Array.isArray(parsedList) && parsedList.length > 0) {
+                        employeeList = parsedList;
+                    }
+                } catch (e) {
+                    console.error('加载员工列表失败:', e);
+                }
             }
             if (savedGroups) {
-                employeeGroups = JSON.parse(savedGroups);
+                try {
+                    const parsedGroups = JSON.parse(savedGroups);
+                    if (typeof parsedGroups === 'object' && parsedGroups !== null) {
+                        employeeGroups = parsedGroups;
+                    }
+                } catch (e) {
+                    console.error('加载员工分组失败:', e);
+                }
             }
+            console.log('员工列表:', employeeList);
         }
         
         let currentYear = 0;
@@ -1006,6 +1021,12 @@
                 return;
             }
             
+            // 检查员工列表是否为空
+            if (!employeeList || employeeList.length === 0) {
+                alert('员工列表为空，无法生成排班表！');
+                return;
+            }
+            
             const key = getScheduleKey();
             const savedData = localStorage.getItem(key);
             if (savedData) {
@@ -1029,8 +1050,12 @@
                 let selectedDays = [];
                 
                 if (savedData) {
-                    const data = JSON.parse(savedData);
-                    selectedDays = data.selectedDays || [];
+                    try {
+                        const data = JSON.parse(savedData);
+                        selectedDays = data.selectedDays || [];
+                    } catch (e) {
+                        console.error('加载员工指定休数据失败:', e);
+                    }
                 }
                 
                 let autoRestDays = [];
@@ -1089,7 +1114,8 @@
                 dailyOnDuty[dateStr] = null;
                 
                 employeeList.forEach(name => {
-                    if (employeeSchedule[name].selectedDays.includes(dateStr) || employeeSchedule[name].autoRestDays.includes(dateStr)) {
+                    const empSchedule = employeeSchedule[name] || { selectedDays: [], autoRestDays: [] };
+                    if (empSchedule.selectedDays.includes(dateStr) || empSchedule.autoRestDays.includes(dateStr)) {
                         dailyRestCount[dateStr]++;
                         const group = employeeGroups[name] || '无组别';
                         if (!dailyGroupRest[dateStr][group]) {
@@ -1119,10 +1145,12 @@
                     const remainingRest = totalRestDays - restDaysPerEmployee[name];
                     if (remainingRest <= 0) return;
                     
+                    const empSchedule = employeeSchedule[name] || { selectedDays: [], autoRestDays: [] };
+                    
                     // 计算当前员工已安排的休息日期
                     const currentRestDays = [
-                        ...employeeSchedule[name].selectedDays.map(d => parseInt(d.split('-')[2])),
-                        ...employeeSchedule[name].autoRestDays.map(d => parseInt(d.split('-')[2]))
+                        ...empSchedule.selectedDays.map(d => parseInt(d.split('-')[2])),
+                        ...empSchedule.autoRestDays.map(d => parseInt(d.split('-')[2]))
                     ].sort((a, b) => a - b);
                     
                     let availableDays = [];
@@ -1136,8 +1164,8 @@
                         const isFemale = femaleEmployees.includes(name);
                         
                         // 跳过已安排休息的日期（包括指定休和自动安排的休息）
-                        if (employeeSchedule[name].selectedDays.includes(dateStr) || 
-                            employeeSchedule[name].autoRestDays.includes(dateStr)) {
+                        if (empSchedule.selectedDays.includes(dateStr) || 
+                            empSchedule.autoRestDays.includes(dateStr)) {
                             continue;
                         }
                         
@@ -1145,14 +1173,17 @@
                         let valid = true;
                         
                         // 特殊规则：陈文童和付新远不能同一天休息
+                        const fuSchedule = employeeSchedule['付新远'] || { selectedDays: [], autoRestDays: [] };
+                        const chenSchedule = employeeSchedule['陈文童'] || { selectedDays: [], autoRestDays: [] };
+                        
                         if (name === '陈文童' && 
-                            (employeeSchedule['付新远'].selectedDays.includes(dateStr) || 
-                             employeeSchedule['付新远'].autoRestDays.includes(dateStr))) {
+                            (fuSchedule.selectedDays.includes(dateStr) || 
+                             fuSchedule.autoRestDays.includes(dateStr))) {
                             valid = false;
                         }
                         if (name === '付新远' && 
-                            (employeeSchedule['陈文童'].selectedDays.includes(dateStr) || 
-                             employeeSchedule['陈文童'].autoRestDays.includes(dateStr))) {
+                            (chenSchedule.selectedDays.includes(dateStr) || 
+                             chenSchedule.autoRestDays.includes(dateStr))) {
                             valid = false;
                         }
                         
@@ -1165,10 +1196,10 @@
                             currentYear + '-' + String(currentMonth).padStart(2, '0') + '-' + String(day + 1).padStart(2, '0') : null;
                         
                         // 避免连续休息
-                        if ((prevDay && (employeeSchedule[name].selectedDays.includes(prevDay) || 
-                                         employeeSchedule[name].autoRestDays.includes(prevDay))) ||
-                            (nextDay && (employeeSchedule[name].selectedDays.includes(nextDay) || 
-                                         employeeSchedule[name].autoRestDays.includes(nextDay)))) {
+                        if ((prevDay && (empSchedule.selectedDays.includes(prevDay) || 
+                                         empSchedule.autoRestDays.includes(prevDay))) ||
+                            (nextDay && (empSchedule.selectedDays.includes(nextDay) || 
+                                         empSchedule.autoRestDays.includes(nextDay)))) {
                             priority -= 50;
                         }
                         
@@ -1248,6 +1279,9 @@
                         const selectedDay = topDays[Math.floor(Math.random() * topDays.length)];
                         
                         // 更新排班数据
+                        if (!employeeSchedule[name]) {
+                            employeeSchedule[name] = { selectedDays: [], autoRestDays: [] };
+                        }
                         employeeSchedule[name].autoRestDays.push(selectedDay.dateStr);
                         dailyRestCount[selectedDay.dateStr]++;
                         restDaysPerEmployee[name]++;
