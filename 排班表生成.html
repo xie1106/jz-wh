@@ -427,16 +427,75 @@
             position: relative;
             margin-bottom: 30px;
         }
-        /* 移除所有冻结效果，恢复正常显示 */
+        /* 冻结列和行功能 */
         .fixed-table {
             position: relative;
         }
         
-        .fixed-table th,
-        .fixed-table td {
-            position: static;
-            z-index: auto;
-            box-shadow: none;
+        /* 冻结顶部行 */
+        .fixed-table thead tr {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 20;
+        }
+        
+        .fixed-table thead tr:nth-child(1) {
+            z-index: 24;
+        }
+        
+        .fixed-table thead tr:nth-child(2) {
+            z-index: 23;
+        }
+        
+        .fixed-table thead tr:nth-child(3) {
+            z-index: 22;
+        }
+        
+        .fixed-table thead tr:nth-child(4) {
+            z-index: 21;
+        }
+        
+        /* 冻结列 */
+        .fixed-table th:nth-child(1),
+        .fixed-table td:nth-child(1) {
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 10;
+            box-shadow: 2px 0 3px rgba(0,0,0,0.1);
+        }
+        
+        .fixed-table th:nth-child(2),
+        .fixed-table td:nth-child(2) {
+            position: sticky;
+            left: 50px;
+            background: white;
+            z-index: 9;
+            box-shadow: 2px 0 3px rgba(0,0,0,0.1);
+        }
+        
+        .fixed-table th:nth-child(3),
+        .fixed-table td:nth-child(3) {
+            position: sticky;
+            left: 130px;
+            background: white;
+            z-index: 8;
+            box-shadow: 2px 0 3px rgba(0,0,0,0.1);
+        }
+        
+        .fixed-table th:nth-child(4),
+        .fixed-table td:nth-child(4) {
+            position: sticky;
+            left: 190px;
+            background: white;
+            z-index: 7;
+            box-shadow: 2px 0 3px rgba(0,0,0,0.1);
+        }
+        
+        /* 确保冻结行的列也有背景色 */
+        .fixed-table thead th {
+            background: white;
         }
         
         /* 确保颜色色块正常显示 */
@@ -516,15 +575,19 @@
         }
         .col-small {
             width: 50px;
+            min-width: 50px;
         }
         .col-name {
             width: 80px;
+            min-width: 80px;
         }
         .col-group {
             width: 60px;
+            min-width: 60px;
         }
         .col-days {
             width: 55px;
+            min-width: 55px;
         }
         .rest {
             background-color: #FFFF00;
