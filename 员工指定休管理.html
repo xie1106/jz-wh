@@ -1478,7 +1478,7 @@
                     row.innerHTML = `
                         <td>${displayIndex}</td>
                         <td><strong>${name}</strong></td>
-                        <td>${employeeGroups[name]}</td>
+                        <td>${employeeGroups[name] || '无组别'}</td>
                         <td><span class="status-badge status-submitted">已提交</span></td>
                         <td>${daysTags || '<span style="color:#999;">无</span>'}</td>
                         <td>${submittedTime}</td>
