@@ -14,12 +14,12 @@
             font-family: "Microsoft YaHei", Arial, sans-serif;
             background: #f5f5f5;
             min-height: 100vh;
-            padding: 12px;
+            padding: 10px;
         }
         .container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 0 10px;
+            padding: 0 8px;
         }
         @media (min-width: 768px) {
             .container {
@@ -28,67 +28,72 @@
         }
         .back-btn {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 5px 10px;
             background: #667eea;
             color: white;
             text-decoration: none;
             border-radius: 6px;
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
         }
         h1 {
             text-align: center;
             color: #333;
-            font-size: 22px;
-            margin-bottom: 15px;
+            font-size: 20px;
+            margin-bottom: 12px;
         }
         .grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
         .card {
             background: white;
             border-radius: 8px;
-            padding: 12px;
+            padding: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .card h2 {
-            font-size: 15px;
+            font-size: 14px;
             color: #333;
-            margin-bottom: 10px;
-            padding-bottom: 6px;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
             border-bottom: 2px solid #667eea;
         }
         .notice {
             background: #fff3cd;
             border: 1px solid #ffc107;
             border-radius: 4px;
-            padding: 8px;
-            margin-bottom: 10px;
+            padding: 6px;
+            margin-bottom: 8px;
         }
         .notice p {
             color: #856404;
-            font-size: 11px;
-            line-height: 1.5;
-            margin-bottom: 4px;
+            font-size: 10px;
+            line-height: 1.4;
+            margin-bottom: 3px;
         }
         .form-group {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         label {
             display: block;
             font-weight: bold;
             color: #333;
-            margin-bottom: 4px;
-            font-size: 13px;
+            margin-bottom: 3px;
+            font-size: 12px;
         }
         select, input[type="number"], input[type="text"] {
             width: 100%;
-            padding: 6px 10px;
+            padding: 5px 8px;
             border: 1px solid #e0e0e0;
             border-radius: 4px;
-            font-size: 13px;
+            font-size: 12px;
         }
         select:focus, input:focus {
             outline: none;
@@ -96,7 +101,7 @@
         }
         .month-selector {
             display: flex;
-            gap: 6px;
+            gap: 5px;
         }
         .month-selector select {
             flex: 1;
@@ -104,7 +109,7 @@
         .calendar {
             border: none;
             border-radius: 6px;
-            padding: 4px;
+            padding: 3px;
             background: #fff;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
@@ -112,26 +117,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             padding: 0 2px;
         }
         .calendar-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: #333;
         }
         .calendar-nav {
             display: flex;
-            gap: 4px;
+            gap: 3px;
         }
         .calendar-nav button {
-            padding: 3px 6px;
+            padding: 2px 5px;
             background: #f5f5f5;
             color: #333;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 500;
         }
         .calendar-nav button:hover {
@@ -141,16 +146,16 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 2px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             padding: 0 2px;
         }
         .weekday {
             text-align: center;
             font-weight: 600;
-            padding: 3px 0;
+            padding: 2px 0;
             background: transparent;
             border-radius: 3px;
-            font-size: 9px;
+            font-size: 8px;
             color: #666;
         }
         .days {
@@ -167,9 +172,9 @@
             border-radius: 3px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 11px;
+            font-size: 9px;
             flex-direction: column;
-            padding: 1px;
+            padding: 0;
             background: white;
         }
         .day:hover {
@@ -193,12 +198,12 @@
             color: white;
         }
         .day .day-number {
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 500;
             line-height: 1;
         }
         .day .holiday-name {
-            font-size: 8px;
+            font-size: 6px;
             color: #c62828;
             margin-top: 1px;
             text-align: center;
@@ -221,7 +226,7 @@
             color: white;
         }
         .day .workday-name {
-            font-size: 8px;
+            font-size: 6px;
             color: #1976d2;
             margin-top: 1px;
             text-align: center;
@@ -238,47 +243,47 @@
             box-shadow: 0 0 0 1.5px #667eea;
         }
         .selected-list {
-            margin-top: 8px;
+            margin-top: 6px;
         }
         .selected-list h3 {
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: #333;
-            font-size: 12px;
+            font-size: 11px;
         }
         .selected-days {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 4px;
         }
         .selected-day-tag {
             background: #800080;
             color: white;
-            padding: 3px 6px;
-            border-radius: 12px;
+            padding: 2px 5px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 3px;
-            font-size: 10px;
+            gap: 2px;
+            font-size: 9px;
         }
         .selected-day-tag button {
             background: transparent;
             border: none;
             color: white;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             padding: 0;
         }
         .submit-btn {
             width: 100%;
-            padding: 8px;
+            padding: 7px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         .submit-btn:hover {
             opacity: 0.9;
@@ -305,29 +310,29 @@
             background: #ffebee;
             border: 2px solid #f44336;
             border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
             text-align: center;
         }
         .disabled-message h3 {
             color: #d32f2f;
-            margin-bottom: 6px;
-            font-size: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
         .disabled-message p {
             color: #666;
-            font-size: 12px;
+            font-size: 11px;
         }
         .success-message {
             background: #d4edda;
             border: 1px solid #28a745;
             border-radius: 6px;
-            padding: 10px;
+            padding: 8px;
             color: #155724;
             text-align: center;
             display: none;
-            margin-top: 12px;
-            font-size: 13px;
+            margin-top: 10px;
+            font-size: 12px;
         }
         .success-message.show {
             display: block;
@@ -336,22 +341,22 @@
             background: #e3f2fd;
             border: 1px solid #2196F3;
             border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 12px;
+            padding: 8px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
         .rest-days-info label {
             font-weight: bold;
             color: #1565c0;
             margin: 0;
-            font-size: 13px;
+            font-size: 12px;
         }
         .rest-days-count {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #1976d2;
         }
@@ -365,10 +370,10 @@
             background: #fff3e0;
             border: 1px solid #ff9800;
             border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 15px;
+            padding: 10px;
+            margin-bottom: 12px;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -376,16 +381,16 @@
             font-weight: bold;
             color: #e65100;
             margin: 0;
-            font-size: 14px;
+            font-size: 13px;
         }
         .rest-days-setting input {
-            width: 60px;
+            width: 55px;
         }
         .btn {
-            padding: 6px 12px;
+            padding: 5px 10px;
             border: none;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             font-weight: bold;
         }
@@ -394,17 +399,17 @@
             color: white;
         }
         .stats {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 6px;
         }
         .stat-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             text-align: center;
         }
@@ -415,12 +420,12 @@
             background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
         }
         .stat-number {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .stat-label {
-            font-size: 11px;
+            font-size: 10px;
             opacity: 0.9;
         }
         .data-table {
@@ -429,10 +434,10 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 11px;
         }
         th, td {
-            padding: 8px 10px;
+            padding: 6px 8px;
             text-align: left;
             border-bottom: 1px solid #e0e0e0;
         }
@@ -448,9 +453,9 @@
         }
         .status-badge {
             display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 15px;
+            font-size: 10px;
             font-weight: bold;
         }
         .status-submitted {
@@ -465,17 +470,17 @@
             display: inline-block;
             background: #800080;
             color: white;
-            padding: 2px 6px;
+            padding: 1px 5px;
             border-radius: 4px;
-            margin: 2px;
-            font-size: 11px;
+            margin: 1px;
+            font-size: 10px;
         }
         .action-btn {
-            padding: 4px 10px;
+            padding: 3px 8px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 10px;
         }
         .action-btn.delete {
             background: #ff4444;
@@ -483,7 +488,7 @@
         }
         .empty-state {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             color: #999;
         }
     </style>
@@ -492,215 +497,226 @@
     <div class="container">
         <a href="index.html" class="back-btn">← 返回首页</a>
         
-        <h1>📋 员工指定休管理</h1>
+        <h1>📋 指定休收集</h1>
         
-        <div class="grid">
-            <div class="card" style="margin-bottom: 20px;">
-                <div class="form-group">
-                    <label>选择月份</label>
-                    <div class="month-selector">
-                        <select id="yearSelect" style="width: 120px;">
-                        </select>
-                        <select id="monthSelect" style="width: 100px;">
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card" style="margin-bottom: 20px;">
-                <div class="rest-days-setting" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                    <label>⚠️ 本月应休天数设置：</label>
-                    <input type="number" id="totalRestDaysTop" min="1" max="31" value="5" style="width: 60px;">
-                    <label>天</label>
-                    <button class="btn btn-primary" onclick="saveTotalRestDaysTop()">💾 保存设置</button>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2>✍️ 员工指定休收集</h2>
-                
-                <div class="notice">
-                    <p><strong>⚠️ 重要提示：</strong></p>
-                    <p>1. 每月25号前请务必提交下个月的休息时间</p>
-                    <p>2. 如果没有回复的默认没有指定休息</p>
-                    <p>3. 提交后不要过来寻求调整，一律拒绝！</p>
-                </div>
-                
-                <div id="disabledMessage" class="disabled-message" style="display: none;">
-                    <h3>⚠️ 请先设置本月应休天数</h3>
-                    <p>请管理员先设置本月应休天数，然后才能进行登记收集</p>
-                </div>
-                
-                <div id="employeeFormContainer">
-                    <div class="form-group">
-                        <label>选择员工姓名 
-                            <button class="btn btn-primary" style="padding: 4px 8px; font-size: 12px; margin-left: 10px;" onclick="toggleEmployeeManager()">👥 管理员工</button>
-                        </label>
-                        <select id="employeeName">
-                            <option value="">请选择姓名</option>
-                        </select>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <div style="flex: 1; min-width: 300px;">
+                <div class="card" style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>✍️ 员工指定休收集</h2>
+                        <button class="btn btn-primary" onclick="editNotice()" style="font-size: 10px; padding: 3px 8px;">编辑提示</button>
                     </div>
                     
-                    <div id="employeeManagerPanel" style="display: none; background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
-                        <h4 style="margin-bottom: 10px; font-size: 15px;">员工管理</h4>
-                        <div class="form-group" style="margin-bottom: 10px;">
-                            <label style="font-size: 13px;">操作：</label>
-                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                <button class="btn btn-primary" onclick="showAddEmployee()">➕ 添加</button>
-                                <button class="btn btn-primary" onclick="showEditEmployee()">✏️ 修改</button>
-                                <button class="btn btn-primary" style="background: #f44336;" onclick="showDeleteEmployee()">🗑️ 删除</button>
-                            </div>
-                        </div>
-                        <div id="employeeAddPanel" style="display: none;">
-                            <div class="form-group">
-                                <label style="font-size: 13px;">新员工姓名：</label>
-                                <input type="text" id="newEmployeeNameInput" placeholder="输入姓名">
-                            </div>
-                            <div class="form-group">
-                                <label style="font-size: 13px;">组别：</label>
-                                <select id="newEmployeeGroupSelect">
-                                    <option value="经理">经理</option>
-                                    <option value="主管">主管</option>
-                                    <option value="到货">到货</option>
-                                    <option value="发货">发货</option>
-                                </select>
-                            </div>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn btn-primary" onclick="doAddEmployee()">确认添加</button>
-                                <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
-                            </div>
-                        </div>
-                        <div id="employeeEditPanel" style="display: none;">
-                            <div class="form-group">
-                                <label style="font-size: 13px;">选择员工：</label>
-                                <select id="editEmployeeSelect">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label style="font-size: 13px;">新姓名：</label>
-                                <input type="text" id="editEmployeeNameInput" placeholder="输入新姓名">
-                            </div>
-                            <div class="form-group">
-                                <label style="font-size: 13px;">组别：</label>
-                                <select id="editEmployeeGroupSelect">
-                                    <option value="经理">经理</option>
-                                    <option value="主管">主管</option>
-                                    <option value="到货">到货</option>
-                                    <option value="发货">发货</option>
-                                </select>
-                            </div>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn btn-primary" onclick="doEditEmployee()">确认修改</button>
-                                <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
-                            </div>
-                        </div>
-                        <div id="employeeDeletePanel" style="display: none;">
-                            <div class="form-group">
-                                <label style="font-size: 13px;">选择要删除的员工：</label>
-                                <select id="deleteEmployeeSelect">
-                                    <option value="">请选择</option>
-                                </select>
-                            </div>
-                            <p style="color: #f44336; font-size: 11px; margin-bottom: 8px;">⚠️ 此操作将同时删除该员工的所有排班数据！</p>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn btn-primary" style="background: #f44336;" onclick="doDeleteEmployee()">确认删除</button>
-                                <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
-                            </div>
+                    <div id="noticeContent" class="notice">
+                        <p><strong>⚠️ 重要提示：</strong></p>
+                        <p>1. 每月25号前请务必提交下个月的休息时间</p>
+                        <p>2. 如果没有回复的默认没有指定休息</p>
+                        <p>3. 提交后不要过来寻求调整，一律拒绝！</p>
+                    </div>
+                    
+                    <div id="noticeEditForm" style="display: none; margin-bottom: 10px;">
+                        <textarea id="noticeText" style="width: 100%; height: 100px; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 12px; font-family: 'Microsoft YaHei', Arial, sans-serif;"></textarea>
+                        <div style="display: flex; gap: 5px; margin-top: 5px;">
+                            <button class="btn btn-primary" onclick="saveNotice()">保存</button>
+                            <button class="btn btn-primary" style="background: #999;" onclick="cancelEditNotice()">取消</button>
                         </div>
                     </div>
                     
-                    <div class="rest-days-info">
-                        <label>本月应休天数：</label>
-                        <span class="rest-days-count" id="restDaysCount">-</span>
+                    <div id="disabledMessage" class="disabled-message" style="display: none;">
+                        <h3>⚠️ 请先设置本月应休天数</h3>
+                        <p>请管理员先设置本月应休天数，然后才能进行登记收集</p>
                     </div>
                     
-                    <div class="form-group">
-                        <label>选择指定休息日期（点击日期选择/取消）</label>
-                        <div class="calendar" id="calendarContainer">
-                            <div class="calendar-header">
-                                <div class="calendar-title" id="calendarTitle"></div>
-                                <div class="calendar-nav">
-                                    <button onclick="prevMonth()">&lt; 上月</button>
-                                    <button onclick="nextMonth()">下月 &gt;</button>
+                    <div id="employeeFormContainer">
+                        <div class="rest-days-setting" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; background-color: #fff3cd; padding: 10px; border-radius: 6px;">
+                            <label style="font-size: 14px; font-weight: bold;">⚠️ 本月应休天数设置：</label>
+                            <input type="number" id="totalRestDaysTop" min="1" max="31" value="5" style="width: 60px;">
+                            <label>天</label>
+                            <button class="btn btn-primary" onclick="saveTotalRestDaysTop()">💾 保存设置</button>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 10px; background-color: #e3f2fd; padding: 10px; border-radius: 6px;">
+                            <label style="font-size: 14px; font-weight: bold;">👤 员工设置</label>
+                            <select id="employeeName">
+                                <option value="">请选择姓名</option>
+                            </select>
+                        </div>
+                        
+                        <div id="employeeManagerPanel" style="display: none; background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                            <h4 style="margin-bottom: 10px; font-size: 15px;">员工管理</h4>
+                            <div class="form-group" style="margin-bottom: 10px;">
+                                <label style="font-size: 13px;">操作：</label>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <button class="btn btn-primary" onclick="showAddEmployee()">➕ 添加</button>
+                                    <button class="btn btn-primary" onclick="showEditEmployee()">✏️ 修改</button>
+                                    <button class="btn btn-primary" style="background: #f44336;" onclick="showDeleteEmployee()">🗑️ 删除</button>
                                 </div>
                             </div>
-                            <div class="weekdays">
-                                <div class="weekday">日</div>
-                                <div class="weekday">一</div>
-                                <div class="weekday">二</div>
-                                <div class="weekday">三</div>
-                                <div class="weekday">四</div>
-                                <div class="weekday">五</div>
-                                <div class="weekday">六</div>
+                            <div id="employeeAddPanel" style="display: none;">
+                                <div class="form-group">
+                                    <label style="font-size: 13px;">新员工姓名：</label>
+                                    <input type="text" id="newEmployeeNameInput" placeholder="输入姓名">
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 13px;">组别（可选，不设置则不参与值班）：</label>
+                                    <select id="newEmployeeGroupSelect">
+                                        <option value="">请选择组别</option>
+                                        <option value="经理">经理</option>
+                                        <option value="主管">主管</option>
+                                        <option value="到货">到货</option>
+                                        <option value="发货">发货</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-primary" onclick="doAddEmployee()">确认添加</button>
+                                    <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
+                                </div>
+                            </div>
+                            <div id="employeeEditPanel" style="display: none;">
+                                <div class="form-group">
+                                    <label style="font-size: 13px;">选择员工：</label>
+                                    <select id="editEmployeeSelect">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 13px;">新姓名：</label>
+                                    <input type="text" id="editEmployeeNameInput" placeholder="输入新姓名">
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 13px;">组别（可选，不设置则不参与值班）：</label>
+                                    <select id="editEmployeeGroupSelect">
+                                        <option value="">请选择组别</option>
+                                        <option value="经理">经理</option>
+                                        <option value="主管">主管</option>
+                                        <option value="到货">到货</option>
+                                        <option value="发货">发货</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-primary" onclick="doEditEmployee()">确认修改</button>
+                                    <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
+                                </div>
+                            </div>
+                            <div id="employeeDeletePanel" style="display: none;">
+                                <div class="form-group">
+                                    <label style="font-size: 13px;">选择要删除的员工：</label>
+                                    <select id="deleteEmployeeSelect">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                                <p style="color: #f44336; font-size: 11px; margin-bottom: 8px;">⚠️ 此操作将同时删除该员工的所有排班数据！</p>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-primary" style="background: #f44336;" onclick="doDeleteEmployee()">确认删除</button>
+                                    <button class="btn btn-primary" style="background: #999;" onclick="hideEmployeeManager()">取消</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="days" id="calendarDays"></div>
                         
-                        <div style="margin-top: 12px; font-size: 11px; color: #888; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
-                            <span style="display: flex; align-items: center; gap: 5px;">
-                                <span style="width: 12px; height: 12px; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-radius: 3px;"></span>
-                                节假日
-                            </span>
-                            <span style="display: flex; align-items: center; gap: 5px;">
-                                <span style="width: 12px; height: 12px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 3px;"></span>
-                                补班
-                            </span>
-                            <span style="display: flex; align-items: center; gap: 5px;">
-                                <span style="width: 12px; height: 12px; background: #800080; border-radius: 3px;"></span>
-                                已选
-                            </span>
+                        <div class="form-group" style="margin-bottom: 10px; background-color: #e8f5e8; padding: 10px; border-radius: 6px;">
+                            <label style="font-size: 14px; font-weight: bold;">📅 选择月份</label>
+                            <div class="month-selector">
+                                <select id="yearSelect" style="width: 120px;">
+                                </select>
+                                <select id="monthSelect" style="width: 100px;">
+                                </select>
+                            </div>
                         </div>
                         
-                        <div class="selected-list">
-                            <h3>已选择的指定休日期：</h3>
-                            <div class="selected-days" id="selectedDays"></div>
+                        <div class="rest-days-info" style="background-color: #f3e5f5; padding: 10px; border-radius: 6px;">
+                            <label>本月应休天数：</label>
+                            <span class="rest-days-count" id="restDaysCount">-</span>
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 10px; background-color: #fff8e1; padding: 10px; border-radius: 6px;">
+                            <label style="font-size: 14px; font-weight: bold;">选择指定休息日期（点击日期选择/取消）</label>
+                            <div class="calendar" id="calendarContainer">
+                                <div class="calendar-header">
+                                    <div class="calendar-title" id="calendarTitle"></div>
+                                    <div class="calendar-nav">
+                                        <button onclick="prevMonth()">&lt; 上月</button>
+                                        <button onclick="nextMonth()">下月 &gt;</button>
+                                    </div>
+                                </div>
+                                <div class="weekdays">
+                                    <div class="weekday">日</div>
+                                    <div class="weekday">一</div>
+                                    <div class="weekday">二</div>
+                                    <div class="weekday">三</div>
+                                    <div class="weekday">四</div>
+                                    <div class="weekday">五</div>
+                                    <div class="weekday">六</div>
+                            </div>
+                            <div class="days" id="calendarDays"></div>
+                            
+                            <div style="margin-top: 12px; font-size: 11px; color: #888; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+                                <span style="display: flex; align-items: center; gap: 5px;">
+                                    <span style="width: 12px; height: 12px; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-radius: 3px;"></span>
+                                    节假日
+                                </span>
+                                <span style="display: flex; align-items: center; gap: 5px;">
+                                    <span style="width: 12px; height: 12px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 3px;"></span>
+                                    补班
+                                </span>
+                                <span style="display: flex; align-items: center; gap: 5px;">
+                                    <span style="width: 12px; height: 12px; background: #800080; border-radius: 3px;"></span>
+                                    已选
+                                </span>
+                            </div>
+                            
+                            <div class="selected-list">
+                                <h3>已选择的指定休日期：</h3>
+                                <div class="selected-days" id="selectedDays"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <button class="submit-btn" id="submitBtn" onclick="submitForm()" disabled>提交指定休申请</button>
-                
-                <div class="success-message" id="successMessage">
-                    ✅ 提交成功！您的指定休申请已保存。
+                    
+                    <button class="submit-btn" id="submitBtn" onclick="submitForm()" disabled>提交指定休申请</button>
+                    
+                    <div class="success-message" id="successMessage">
+                        ✅ 提交成功！您的指定休申请已保存。
+                    </div>
                 </div>
             </div>
             
-            <div class="card">
-                <h2>📊 数据管理</h2>
-                
-                <div class="stats">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number" id="totalEmployees">16</div>
-                            <div class="stat-label">总员工数</div>
-                        </div>
-                        <div class="stat-card submitted">
-                            <div class="stat-number" id="submittedCount">0</div>
-                            <div class="stat-label">已提交</div>
-                        </div>
-                        <div class="stat-card pending">
-                            <div class="stat-number" id="pendingCount">16</div>
-                            <div class="stat-label">未提交</div>
+            <div style="flex: 1; min-width: 300px;">
+                <div class="card">
+                    <h2>📊 数据管理</h2>
+                    
+                    <div class="stats">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="totalEmployees">16</div>
+                                <div class="stat-label">总员工数</div>
+                            </div>
+                            <div class="stat-card submitted">
+                                <div class="stat-number" id="submittedCount">0</div>
+                                <div class="stat-label">已提交</div>
+                            </div>
+                            <div class="stat-card pending">
+                                <div class="stat-number" id="pendingCount">16</div>
+                                <div class="stat-label">未提交</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>姓名</th>
-                                <th>组别</th>
-                                <th>状态</th>
-                                <th>指定休日期</th>
-                                <th>提交时间</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dataTableBody">
-                        </tbody>
-                    </table>
+                    
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>姓名</th>
+                                    <th>组别</th>
+                                    <th>状态</th>
+                                    <th>指定休日期</th>
+                                    <th>提交时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBody">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -839,6 +855,39 @@
             loadSavedData();
             renderCalendar();
             loadData();
+            loadNotice();
+        }
+        
+        // 加载提示内容
+        function loadNotice() {
+            const savedNotice = localStorage.getItem('noticeContent');
+            if (savedNotice) {
+                document.getElementById('noticeContent').innerHTML = savedNotice;
+            }
+        }
+        
+        // 编辑提示
+        function editNotice() {
+            const noticeContent = document.getElementById('noticeContent').innerHTML;
+            document.getElementById('noticeText').value = noticeContent;
+            document.getElementById('noticeContent').style.display = 'none';
+            document.getElementById('noticeEditForm').style.display = 'block';
+        }
+        
+        // 保存提示
+        function saveNotice() {
+            const noticeText = document.getElementById('noticeText').value;
+            document.getElementById('noticeContent').innerHTML = noticeText;
+            document.getElementById('noticeContent').style.display = 'block';
+            document.getElementById('noticeEditForm').style.display = 'none';
+            localStorage.setItem('noticeContent', noticeText);
+            alert('提示内容已保存！');
+        }
+        
+        // 取消编辑提示
+        function cancelEditNotice() {
+            document.getElementById('noticeContent').style.display = 'block';
+            document.getElementById('noticeEditForm').style.display = 'none';
         }
         
         function populateEmployeeSelect() {
@@ -910,12 +959,19 @@
             }
             
             employeeList.push(newName);
-            employeeGroups[newName] = newGroup;
+            if (newGroup) {
+                employeeGroups[newName] = newGroup;
+            } else {
+                // 不设置组别，该员工不会参与值班
+                employeeGroups[newName] = '';
+            }
             
             saveEmployeeList();
             populateEmployeeSelect();
             loadData();
-            hideEmployeeManager();
+            // 保持员工管理面板显示，清空输入框以便继续添加
+            document.getElementById('newEmployeeNameInput').value = '';
+            document.getElementById('newEmployeeGroupSelect').value = '';
             alert('员工添加成功！');
         }
         
@@ -941,7 +997,12 @@
                 const index = employeeList.indexOf(oldName);
                 employeeList[index] = newName;
                 delete employeeGroups[oldName];
-                employeeGroups[newName] = newGroup;
+                if (newGroup) {
+                    employeeGroups[newName] = newGroup;
+                } else {
+                    // 不设置组别，该员工不会参与值班
+                    employeeGroups[newName] = '';
+                }
                 
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
@@ -953,7 +1014,12 @@
                     }
                 }
             } else {
-                employeeGroups[oldName] = newGroup;
+                if (newGroup) {
+                    employeeGroups[oldName] = newGroup;
+                } else {
+                    // 不设置组别，该员工不会参与值班
+                    employeeGroups[oldName] = '';
+                }
             }
             
             saveEmployeeList();
@@ -998,7 +1064,7 @@
             const name = this.value;
             if (name) {
                 document.getElementById('editEmployeeNameInput').value = name;
-                document.getElementById('editEmployeeGroupSelect').value = employeeGroups[name] || '发货';
+                document.getElementById('editEmployeeGroupSelect').value = employeeGroups[name] || '';
             }
         });
         
