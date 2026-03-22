@@ -1,24 +1,24 @@
-
- 
-
-     
-      
-    
-    
-        *  {
-            边距：0;
-            
-            盒模型：边框盒;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云仓排班管理系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        身体 {
-            字体："微软 YaHei"，Arial，无衬线;
-            linear-gradient(135deg
-            
-            
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
         }
-        .容器 {
-            
-            边距：0 自动;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
         h1 {
             text-align: center;
@@ -27,13 +27,13 @@
             margin-bottom: 25px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-
+        .card-container {
             display: grid;
-            (auto-fit(250px1fr))
-            
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
         }
-        .卡片 {
-            背景：白色;
+        .card {
+            background: white;
             border-radius: 12px;
             padding: 25px;
             text-align: center;
